@@ -98,13 +98,13 @@ wget https://raw.githubusercontent.com/GameServerManagers/LinuxGSM/master/linuxg
 RUN chmod +x linuxgsm.sh && su-exec sfserver bash linuxgsm.sh sfserver
 
 # Add files
-ADD install.sh user.sh /home/sfserver/
+ADD install.sh entrypoint.sh /home/sfserver/
 ADD scripts /home/sfserver/scripts
 ADD lgsm/config-lgsm/sfserver/common.cfg /home/sfserver/
 ADD lgsm /home/sfserver/lgsm
 
 # Apply permissions
-RUN chmod +x install.sh user.sh
+RUN chmod +x install.sh entrypoint.sh
 
 ##############EXTRA CONFIG##############
 #Ports
@@ -112,4 +112,4 @@ EXPOSE 15777/udp 15000/udp 7777/udp
 #Shared folders to host
 VOLUME /home/sfserver/serverfiles/ /home/sfserver/log/ /home/sfserver/lgsm/backup/ /home/sfserver/lgsm/config-lgsm/sfserver/ /home/sfserver/.config/Epic/FactoryGame/Saved/SaveGames
 ##############EXTRA CONFIG##############
-ENTRYPOINT ["/home/sfserver/user.sh", "/home/sfserver/install.sh"]
+ENTRYPOINT ["/home/sfserver/entrypoint.sh"]
